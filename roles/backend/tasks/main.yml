@@ -1,0 +1,6 @@
+- block:
+    - import_tasks: yarn_config.yml
+  become: true
+
+- import_tasks: app_config.yml
+  tags: app_config

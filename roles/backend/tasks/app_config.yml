@@ -1,0 +1,20 @@
+- name: Download repo
+  git:
+    repo: https://github.com/jyepesr1/movie-analyst-api
+    dest: "{{ app_path }}"
+    version: dev
+
+- name: Install node.js dependencies
+  yarn:
+    path: "{{ app_path }}"
+
+- name: Delete old app process
+  command: ./node_modules/.bin/pm2 delete server
+  args:
+    chdir: "{{ app_path }}"
+  ignore_errors: true
+
+- name: Execute app
+  command: yarn start
+  args:
+    chdir: "{{ app_path }}"

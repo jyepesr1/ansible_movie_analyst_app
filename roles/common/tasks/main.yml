@@ -11,4 +11,10 @@
         - gcc-c++
         - make
       state: latest
+
+  - name: Add cron to execute ansible every reboot
+    cron:
+      name: "Execute ansible when instance is rebooted"
+      special_time: reboot
+      job: "ansible-playbook /usr/ansible/playbooks/{{ ansible_play_name }}.yml"
   become: true
