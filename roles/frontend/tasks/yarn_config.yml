@@ -1,0 +1,26 @@
+- name: Check if Node.js is installed
+  shell: rpm -qa 'node|npm' | grep nodesource
+  register: grep_output
+  failed_when: "grep_output.rc == 2"
+  changed_when: false
+  ignore_errors: true
+
+- name: Install Node.js 8 repo
+  shell: curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
+  args:
+    executable: /bin/bash
+    creates: 
+  when: grep_output.rc != 0
+
+- name: Install yarn repo to resolve node.js dependencies
+  shell: curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
+  args:
+    executable: /bin/bash
+    creates: /etc/yum.repos.d/yarn.repo
+
+- name: Install yarn and node binaries
+  yum:
+    name: 
+      - yarn
+      - nodejs
+    state: latest

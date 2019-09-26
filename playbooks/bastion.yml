@@ -1,0 +1,6 @@
+- name: Bastion host
+  hosts: tag_Name_Bastion
+  roles:
+    - common
+    - bastion
+    - frontend

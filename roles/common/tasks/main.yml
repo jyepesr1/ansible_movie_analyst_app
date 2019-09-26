@@ -1,0 +1,14 @@
+- block:
+  - name: Update all packages to latest
+    yum: 
+      name: '*'
+      state: latest
+
+  - name: Install basic tools
+    yum:
+      name:
+        - git
+        - gcc-c++
+        - make
+      state: latest
+  become: true

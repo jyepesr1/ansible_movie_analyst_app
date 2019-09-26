@@ -1,0 +1,14 @@
+- name: Set ip forwarding on with the sysctl command
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    sysctl_set: yes
+
+- name: Update the iptables with POSTROUTING
+  iptables:
+    action: append
+    chain: POSTROUTING
+    jump: MASQUERADE
+    out_interface: eth0
+    source: 172.31.16.0/20
+    table: nat
