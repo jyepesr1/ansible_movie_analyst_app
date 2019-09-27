@@ -1,1 +1,1 @@
-app_path: "{{ ansible_env.HOME }}/movie-analyst-ui"
+app_path: "/opt/movie-analyst-ui"
