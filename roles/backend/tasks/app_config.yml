@@ -20,9 +20,13 @@
     chdir: "{{ APP_PATH }}"
   ignore_errors: true
   become_user: "{{ USER }}"
+  environment:
+    HOME: "/home/{{ USER }}"
 
 - name: Execute app
   command: yarn start
   args:
     chdir: "{{ APP_PATH }}"
   become_user: "{{ USER }}"
+  environment:
+    HOME: "/home/{{ USER }}"
