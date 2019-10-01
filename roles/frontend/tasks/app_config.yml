@@ -1,20 +1,26 @@
 - name: Download repo
   git:
     repo: https://github.com/jyepesr1/movie-analyst-ui
-    dest: "{{ app_path }}"
+    dest: "{{ APP_PATH }}"
     version: dev
 
 - name: Install node.js dependencies
   yarn:
-    path: "{{ app_path }}"
+    path: "{{ APP_PATH }}"
+
+- name: Set secrets file
+  template:
+    src: .env.j2
+    dest: "{{ APP_PATH }}/.env"
+    mode: '0600'
 
 - name: Delete old app process
   command: ./node_modules/.bin/pm2 delete server
   args:
-    chdir: "{{ app_path }}"
+    chdir: "{{ APP_PATH }}"
   ignore_errors: true
 
 - name: Execute app
   command: yarn start
   args:
-    chdir: "{{ app_path }}"
+    chdir: "{{ APP_PATH }}"

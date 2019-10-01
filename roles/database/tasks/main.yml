@@ -1,0 +1,26 @@
+- name: Install MySQL client
+  yum:
+    name: mysql
+    state: latest
+    lock_timeout: 180
+
+# similar to mysql -u <username> -p <password> < hostname.sql
+- name: Import data to database
+  mysql_db:
+    state: import
+    name: "{{ DB_NAME }}"
+    login_host: "{{ DB_HOST }}"
+    login_user: "{{ DB_ADMIN_USER }}"
+    login_password: "{{ DB_ADMIN_PASS }}"
+    target: "{{ APP_PATH }}/data_model/table_creation_and_inserts.sql"
+
+- name: Configure database user
+  mysql_user:
+    name: "{{ DB_USER }}"
+    host: '%'
+    password: "{{ DB_PASS }}"
+    login_host: "{{ DB_HOST }}"
+    login_user: "{{ DB_ADMIN_USER }}"
+    login_password: "{{ DB_ADMIN_PASS }}"
+    priv: '{{ DB_NAME }}.*:ALL'
+    state: present
