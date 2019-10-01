@@ -12,7 +12,7 @@
     login_host: "{{ DB_HOST }}"
     login_user: "{{ DB_ADMIN_USER }}"
     login_password: "{{ DB_ADMIN_PASS }}"
-    target: "table_creation_and_inserts.sql"
+    target: "{{ role_path }}/files/table_creation_and_inserts.sql"
 
 - name: Configure database user
   mysql_user:
