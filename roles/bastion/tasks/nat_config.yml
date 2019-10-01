@@ -4,11 +4,20 @@
     value: "1"
     sysctl_set: yes
 
-- name: Update the iptables with POSTROUTING
+- name: Update the iptables with POSTROUTING for private subnet-1
   iptables:
     action: append
     chain: POSTROUTING
     jump: MASQUERADE
     out_interface: eth0
     source: 172.31.16.0/20
+    table: nat
+
+- name: Update the iptables with POSTROUTING for private subnet-2
+  iptables:
+    action: append
+    chain: POSTROUTING
+    jump: MASQUERADE
+    out_interface: eth0
+    source: 172.31.48.0/20
     table: nat
