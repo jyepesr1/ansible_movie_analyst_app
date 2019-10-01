@@ -1,5 +1,7 @@
 - name: Check if Node.js is installed
   shell: rpm -qa 'node|npm' | grep nodesource
+  args:
+    warn: no
   register: grep_output
   failed_when: "grep_output.rc == 2"
   changed_when: false

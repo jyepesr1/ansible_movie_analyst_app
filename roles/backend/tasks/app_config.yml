@@ -20,6 +20,7 @@
     chdir: "{{ APP_PATH }}"
   ignore_errors: true
   become_user: "{{ USER }}"
+  become: true
   environment:
     HOME: "/home/{{ USER }}"
 
@@ -28,5 +29,6 @@
   args:
     chdir: "{{ APP_PATH }}"
   become_user: "{{ USER }}"
+  become: true
   environment:
     HOME: "/home/{{ USER }}"
