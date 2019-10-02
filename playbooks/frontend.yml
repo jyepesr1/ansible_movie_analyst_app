@@ -1,0 +1,5 @@
+- name: Frontend host
+  hosts: 127.0.0.1
+  roles:
+    - common
+    - frontend

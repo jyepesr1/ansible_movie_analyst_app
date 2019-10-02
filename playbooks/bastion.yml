@@ -1,6 +1,6 @@
 - name: Bastion host
-  hosts: tag_Name_Bastion
+  hosts: 127.0.0.1
   roles:
     - common
     - bastion
-    - frontend
+    - database

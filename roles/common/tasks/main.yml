@@ -1,14 +1,15 @@
-- block:
-  - name: Update all packages to latest
-    yum: 
-      name: '*'
-      state: latest
+- name: Update all packages to latest
+  yum: 
+    name: '*'
+    state: latest
+    lock_timeout: 180
 
-  - name: Install basic tools
-    yum:
-      name:
-        - git
-        - gcc-c++
-        - make
-      state: latest
-  become: true
+- name: Install basic tools
+  yum:
+    name:
+      - git
+      - gcc-c++
+      - make
+      - python3
+    state: latest
+    lock_timeout: 180

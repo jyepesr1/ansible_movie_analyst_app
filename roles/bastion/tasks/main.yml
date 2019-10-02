@@ -1,3 +1,2 @@
-- block:
-    - include_tasks: nat_config.yml
-  become: true
+- include_tasks: nat_config.yml
+
