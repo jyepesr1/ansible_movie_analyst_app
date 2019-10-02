@@ -18,6 +18,6 @@
   cron:
     name: "Execute ansible when instance is rebooted"
     special_time: reboot
-    job: "ansible-playbook /usr/ansible/playbooks/{{ ansible_play_name }}.yml"
+    job: "cd /usr/ansible && ansible-playbook --vault-id @get_pass.sh --connection=local -i 127.0.0.1, ./playbooks/{{ ansible_play_name }}.yml"
     cron_file: ansible_bootstrap
     user: ec2-user
