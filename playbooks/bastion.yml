@@ -1,4 +1,4 @@
-- name: Bastion host
+- name: bastion
   hosts: 127.0.0.1
   roles:
     - common

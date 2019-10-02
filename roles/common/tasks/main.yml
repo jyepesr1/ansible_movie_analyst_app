@@ -13,3 +13,11 @@
       - python3
     state: latest
     lock_timeout: 180
+
+- name: Add cron to execute ansible every reboot
+  cron:
+    name: "Execute ansible when instance is rebooted"
+    special_time: reboot
+    job: "ansible-playbook /usr/ansible/playbooks/{{ ansible_play_name }}.yml"
+    cron_file: ansible_bootstrap
+    user: ec2-user
