@@ -10,12 +10,6 @@
     yarn:
       path: "{{ APP_PATH }}"
 
-  - name: Set secrets file
-    template:
-      src: .env.j2
-      dest: "{{ APP_PATH }}/.env"
-      mode: '0644'
-
   - name: Delete old app process
     command: ./node_modules/.bin/pm2 delete server
     args:
@@ -34,4 +28,6 @@
     become: true
     environment:
       HOME: "/home/{{ USER }}"
+      BACK_HOST: "{{ BACK_HOST }}"
+      PORT: "{{ PORT }}"
   when: repo.changed
