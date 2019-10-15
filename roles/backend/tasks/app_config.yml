@@ -27,7 +27,7 @@
       HOME: "/home/{{ USER }}"
 
   - name: Execute app
-    command: yarn start
+    command: ./node_modules/.bin/pm2-runtime server.js
     args:
       chdir: "{{ APP_PATH }}"
     become_user: "{{ USER }}"
