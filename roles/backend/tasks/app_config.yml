@@ -21,7 +21,7 @@
       HOME: "/home/{{ USER }}"
 
   - name: Execute app
-    command: ./node_modules/.bin/pm2-runtime server.js
+    command: ./node_modules/.bin/pm2 start server.js
     args:
       chdir: "{{ APP_PATH }}"
     become_user: "{{ USER }}"
