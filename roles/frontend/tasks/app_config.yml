@@ -3,31 +3,28 @@
     repo: https://github.com/jyepesr1/movie-analyst-ui
     dest: "{{ APP_PATH }}"
     version: dev
-  register: repo
 
-- block:
-  - name: Install node.js dependencies
-    yarn:
-      path: "{{ APP_PATH }}"
+- name: Install node.js dependencies
+  yarn:
+    path: "{{ APP_PATH }}"
 
-  - name: Delete old app process
-    command: ./node_modules/.bin/pm2 delete server
-    args:
-      chdir: "{{ APP_PATH }}"
-    ignore_errors: true
-    become_user: "{{ USER }}"
-    become: true
-    environment:
-      HOME: "/home/{{ USER }}"
+- name: Delete old app process
+  command: ./node_modules/.bin/pm2 delete server
+  args:
+    chdir: "{{ APP_PATH }}"
+  ignore_errors: true
+  become_user: "{{ USER }}"
+  become: true
+  environment:
+    HOME: "/home/{{ USER }}"
 
-  - name: Execute app
-    command: ./node_modules/.bin/pm2 start server.js
-    args:
-      chdir: "{{ APP_PATH }}"
-    become_user: "{{ USER }}"
-    become: true
-    environment:
-      HOME: "/home/{{ USER }}"
-      BACK_HOST: "{{ BACK_HOST }}"
-      PORT: "{{ PORT }}"
-  when: repo.changed
+- name: Execute app
+  command: ./node_modules/.bin/pm2 start server.js
+  args:
+    chdir: "{{ APP_PATH }}"
+  become_user: "{{ USER }}"
+  become: true
+  environment:
+    HOME: "/home/{{ USER }}"
+    BACK_HOST: "{{ BACK_HOST }}"
+    PORT: "{{ PORT }}"

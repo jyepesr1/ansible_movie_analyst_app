@@ -5,32 +5,30 @@
     version: dev
   register: repo
 
-- block:
-  - name: Install node.js dependencies
-    yarn:
-      path: "{{ APP_PATH }}"
+- name: Install node.js dependencies
+  yarn:
+    path: "{{ APP_PATH }}"
 
-  - name: Delete old app process
-    command: ./node_modules/.bin/pm2 delete server
-    args:
-      chdir: "{{ APP_PATH }}"
-    ignore_errors: true
-    become_user: "{{ USER }}"
-    become: true
-    environment:
-      HOME: "/home/{{ USER }}"
+- name: Delete old app process
+  command: ./node_modules/.bin/pm2 delete server
+  args:
+    chdir: "{{ APP_PATH }}"
+  ignore_errors: true
+  become_user: "{{ USER }}"
+  become: true
+  environment:
+    HOME: "/home/{{ USER }}"
 
-  - name: Execute app
-    command: ./node_modules/.bin/pm2 start server.js
-    args:
-      chdir: "{{ APP_PATH }}"
-    become_user: "{{ USER }}"
-    become: true
-    environment:
-      HOME: "/home/{{ USER }}"
-      APP_PORT: "{{ APP_PORT }}"
-      DB_HOST: "{{ DB_HOST }}"
-      DB_USER: "{{ DB_USER }}"
-      DB_PASS: "{{ DB_PASS }}"
-      DB_NAME: "{{ DB_NAME }}"
-  when: repo.changed
+- name: Execute app
+  command: ./node_modules/.bin/pm2 start server.js
+  args:
+    chdir: "{{ APP_PATH }}"
+  become_user: "{{ USER }}"
+  become: true
+  environment:
+    HOME: "/home/{{ USER }}"
+    APP_PORT: "{{ APP_PORT }}"
+    DB_HOST: "{{ DB_HOST }}"
+    DB_USER: "{{ DB_USER }}"
+    DB_PASS: "{{ DB_PASS }}"
+    DB_NAME: "{{ DB_NAME }}"
